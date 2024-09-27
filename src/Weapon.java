@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class Weapon extends EquipmentOffensive {
-    public Weapon(){
+    public Weapon() {
 
     }
-    public int   warriorWeapon( int attack){
+
+    public int warriorWeapon(int attack) {
         int choix = 0;
 
         while (choix != 1 && choix != 2) {
@@ -36,5 +37,6 @@ public class Weapon extends EquipmentOffensive {
         return attack;
 
     }
+}
 
 
