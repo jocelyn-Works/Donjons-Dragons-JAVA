@@ -6,6 +6,8 @@ public class Game {
     private int D2;
     int round = 0;
 
+
+
     public int getD1() {
         return D1;
     }
@@ -39,7 +41,7 @@ public class Game {
         warrior.CharacterType(warrior.getName()); // choix guerrier ou magicien
 
 
-        do {
+        while (true) {
             System.out.println("  ");
             round++; // compte le nombre de tour
 
@@ -49,6 +51,7 @@ public class Game {
 
 
             //   -----------------------------   lancer des D ---------------------------------- // ---   Position Perso --- //
+
             System.out.println("***************      Tour n° " + round + "     *************** ");
             System.out.println("  ");
             Random r = new Random();
@@ -59,6 +62,8 @@ public class Game {
             System.out.println("total : " + totalD);
 
 
+
+
             // ---------------------------------   Position Perso -------------------------------//
             position += totalD;
 
@@ -66,43 +71,35 @@ public class Game {
 
             // ---------------------------------  double D ---------------------------------- //
 
-//            Warrior warrior = new Warrior();
-//            int updateAttack = warrior.warrior(D1, D2, character.getAttack(), round);
-//            character.setAttack(updateAttack);
 
-//            int nbRound = 0;
-//            nbRound--;
-//            Warrior warrior = new Warrior();
-//            warrior.warrior(D1, D2, character.getAttack(), nbRound);
+            int updateAttack = warrior.warrior(D1, D2, warrior.getAttack() ,round);
+
+            warrior.setAttack(updateAttack);
+
+            warrior.updateDoubleD(warrior.getupdateRound(),round);
 
             // ------------------------------  print info joueur ---------------------------- //
 
             Weapon weapon = new Weapon();
             warrior.characterInfo(warrior.getName(), warrior.getCharacterRole(), warrior.getLife(), warrior.getAttack(), weapon.getWeapon(), weapon.getPotion() );
-            //weapon.infoEquipement();
 
-            //System.out.println("Votre  arme : " + weapon.getWeapon() +" Votre Potions : " +  weapon.getPotion());
-
-            //System.out.println(weapon.toString());
-
-            //System.out.println(character.toString());
 //
             // ------------------------------   offensive   -------------------------------- //
 
-            if (warrior.getCharacterRole().equals("Guerrier")){
-               int updateWeapon =  weapon.warriorWeapon(warrior.getAttack());
-               warrior.setAttack(updateWeapon);
-            }
-
-            Spell spell = new Spell();
-
-            if(warrior.getCharacterRole().equals("Magicien")){
-                int updateWeapon = spell.spellMagician(warrior.getAttack());
-                warrior.setAttack(updateWeapon);
-            }
-
-            int updatePotions = weapon.potions(warrior.getLife());
-            warrior.setLife(updatePotions);
+//            if (warrior.getCharacterRole().equals("Guerrier")){
+//               int updateWeapon =  weapon.warriorWeapon(warrior.getAttack());
+//               warrior.setAttack(updateWeapon);
+//            }
+//
+//            Spell spell = new Spell();
+//
+//            if(warrior.getCharacterRole().equals("Magicien")){
+//                int updateWeapon = spell.spellMagician(warrior.getAttack());
+//                warrior.setAttack(updateWeapon);
+//            }
+//
+//            int updatePotions = weapon.potions(warrior.getLife());
+//            warrior.setLife(updatePotions);
 
 
             // **********************************  fin du jeu *************************************** //
@@ -121,9 +118,7 @@ public class Game {
                 break; // Sorti de la boucle
             }
 
-            System.out.println("  ");
-
-        } while (true);
+        }
     }
 }
 
