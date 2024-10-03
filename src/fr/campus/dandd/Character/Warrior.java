@@ -1,5 +1,17 @@
+package fr.campus.dandd.Character;
+
 public class Warrior extends Character {
     private  int updateRound;
+
+
+    public Warrior(String name, String role) {
+        super(name, role);
+        setLife(10);
+        setAttack(10);
+    }
+
+
+
 
     public int getupdateRound() {
         return updateRound;
@@ -7,7 +19,7 @@ public class Warrior extends Character {
 
 
 
-    public int warrior(int D1, int D2, int attack, int round) {
+    public int doubleD(int D1, int D2, int attack, int round) {
 
         if (D1 == D2) {
             attack *= 2;
@@ -19,11 +31,13 @@ public class Warrior extends Character {
         return attack;
     }
 
-    public void updateDoubleD(int thirdRound, int round) {
+    public int updateDoubleD(int thirdRound, int round) {
 
         if (thirdRound == round){
+
             attack /= 2;
         }
+        return attack;
 
     }
 
