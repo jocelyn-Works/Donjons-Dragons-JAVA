@@ -2,17 +2,32 @@ package fr.campus.dandd.Character;
 
 public abstract class Character {
 
+
+
+    private int id;
     private String characterRole;
     private String characterName;
 
       int life;
       int attack;
 
+    public Character() {
+    }
+
     public Character(String characterName, String characterRole) {
 
         this.characterName = characterName;
         this.characterRole = characterRole;
 
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public  int getLife() {

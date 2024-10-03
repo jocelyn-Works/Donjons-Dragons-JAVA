@@ -26,6 +26,8 @@ public class Game {
     private int round = 0;
     private int position = 0;
 
+    Db db = new Db();
+
     private ArrayList<Case> board = new ArrayList<>();
 
 
@@ -57,85 +59,9 @@ public class Game {
     Character player = null;
 
 
-    public String getName() {
-
-        try {
-            Scanner obj = new Scanner(System.in);
-
-            System.out.println("Choisissez un nom pour votre personnage : ");
-
-            return obj.nextLine();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return "";
-    }
-
-    // choix du type de perso et attribuer la vie et l'attaque
-
-    public static String characterType(String characterPseudo) {
-
-        Scanner scanner = new Scanner(System.in);
-        int choix = 0;
-        while (choix != 1 && choix != 2) {
-
-            System.out.println("  ");
-            System.out.println("********************* * * * * * **********************");
-            System.out.println("*                                                    *");
-            System.out.println("*  Choisissez un personnage                          *");
-            System.out.println("*                                                    *");
-            System.out.println("*    1. Guerrier                                     *");
-            System.out.println("*    2. Magicien                                     *");
-            System.out.println("*                                                    *");
-            System.out.println("********************* * * * * * **********************");
-            System.out.println("  ");
 
 
-            choix = scanner.nextInt();
 
-            if (choix != 1 && choix != 2) {
-                System.out.println("Choix invalide. Veuillez choisir entre un Guerrier ou un Magicien");
-            }
-        }
-
-        String characterRole;
-
-        switch (choix) {
-            case 1:
-                characterRole = "Guerrier";
-                break;
-            case 2:
-                characterRole = "Magicien";
-                break;
-            default:
-                characterRole = "Personnage non reconnu.";
-        }
-
-        System.out.println("********************* * * * * * **********************");
-        System.out.println(" ");
-        System.out.println("  Le personnage choisi est " + characterPseudo + " le " + characterRole);
-        System.out.println(" ");
-        System.out.println("********************* * * * * * **********************");
-
-
-        if (characterRole.equals("Guerrier")) {
-
-            int life = 10;
-            int attack = 10;
-
-            System.out.println("Niveau de vie : " + life);
-            System.out.println("Force  : " + attack);
-
-        } else { // magicien
-            int life = 6;
-            int attack = 15;
-
-            System.out.println("Niveau de vie : " + life);
-            System.out.println("Force  : " + attack);
-        }
-        return characterRole;
-    }
 
     public void createBoard() {
 
@@ -211,29 +137,15 @@ public class Game {
     }
 
 
-    public Game() {
-
-        Db db = new Db();
-        db.getConnection();
-        db.getAllHero();
+    public void play() {
 
         Menu menu = new Menu();
         menu.welcome();
+        player = menu.choicePlayer();
 
-        // ---------------------------  .Character   ----------------------------- //
-
-        String name = getName();
-
-        String role = characterType(name);
-
-        if (role.equals("Guerrier")) {
-            player = new Warrior(name, role);
-        } else {
-            player = new Wizard(name, role);
-        }
 
         // plateau
-        createBoard();
+        //createBoard();
 
         while (true) {
 
@@ -294,6 +206,8 @@ public class Game {
 
         }
     }
+
+
 
 
 }

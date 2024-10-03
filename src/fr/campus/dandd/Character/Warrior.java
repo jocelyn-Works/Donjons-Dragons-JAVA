@@ -4,8 +4,8 @@ public class Warrior extends Character {
     private  int updateRound;
 
 
-    public Warrior(String name, String role) {
-        super(name, role);
+    public Warrior() {
+
         setLife(10);
         setAttack(10);
     }
