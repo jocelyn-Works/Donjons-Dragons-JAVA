@@ -13,6 +13,7 @@ import fr.campus.dandd.Enemy.Gobelin;
 import fr.campus.dandd.Enemy.Sorcrer;
 import fr.campus.dandd.Item.Potion;
 import fr.campus.dandd.Item.Spell;
+import fr.campus.dandd.Db.Db;
 
 
 import java.util.ArrayList;
@@ -211,6 +212,11 @@ public class Game {
 
 
     public Game() {
+
+        Db db = new Db();
+        db.getConnection();
+        db.getAllHero();
+
         Menu menu = new Menu();
         menu.welcome();
 
