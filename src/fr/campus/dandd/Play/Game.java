@@ -26,7 +26,6 @@ public class Game {
     private int round = 0;
     private int position = 0;
 
-    Db db = new Db();
 
     private ArrayList<Case> board = new ArrayList<>();
 
@@ -55,11 +54,9 @@ public class Game {
         this.position = position;
     }
 
+    Db db = new Db();
 
-    Character player = null;
-
-
-
+    Character player;
 
 
 
@@ -145,7 +142,7 @@ public class Game {
 
 
         // plateau
-        //createBoard();
+       // createBoard();
 
         while (true) {
 
@@ -154,10 +151,8 @@ public class Game {
 
             menu.playOrUpdate();
 
-//            String updateName = menu.playOrUpdate(player.getCharacterName());
-//            player.setCharacterName(updateName);
 
-            //   -----------------------------   lancer des D ---------------------------------- // ---   Position Perso --- //
+            //   -----------------------------   lancer les D -------------- // ---   Position Perso --- //
             int updatePosition = menu.gamingDice(round, position);
             setPosition(updatePosition);
 
@@ -182,17 +177,10 @@ public class Game {
 
             // **********************************  fin du jeu *************************************** //
             // --------------------------  vie a 0 --------------------------------//
-            if (player.getLife() == 0) {
 
-                System.out.println("********************* * * * * * **********************");
-                System.out.println("*                                                    *");
-                System.out.println("*     Votre personnage est mort fin du jeux !!!      *");
-                System.out.println("*                                                    *");
-                System.out.println("********************* * * * * * **********************");
-
-                break; // Sorti de la boucle
-            }
+            menu.playerLife();
             // ---------------------------------- sortie du plateau ---------------------------------------//
+
             if (position >= 64) {
                 System.out.println("  ");
 

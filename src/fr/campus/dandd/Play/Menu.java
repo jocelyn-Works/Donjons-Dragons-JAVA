@@ -17,6 +17,15 @@ public class Menu {
     private int D2;
 
     private int choice;
+
+    public int getChoice() {
+        return choice;
+    }
+
+    public void setChoice(int choice) {
+        this.choice = choice;
+    }
+
     Character player = null;
 
     Db db = new Db();
@@ -60,7 +69,7 @@ public class Menu {
         scanner.nextLine();
     }
 
-    public  Character choicePlayer() {
+    public Character choicePlayer() {
 
         choice = 0;
         Scanner scanner = new Scanner(System.in);
@@ -71,17 +80,24 @@ public class Menu {
 
             choice = scanner.nextInt();
             if (choice != 1 && choice != 2) {
-                System.out.println("Choix invalide. Veuillez choisir entre Crée oun personnage ");
+                System.out.println("Choix invalide. Veuillez choisir entre 1 / OU 2 / ");
             }
         }
         switch (choice) {
             case 1:
                 // all Hero
-
                 db.getAllHero();
-                choice = 0;
-                choice = scanner.nextInt();
+                System.out.println("  ");
+                System.out.println("Veuillez choisir un Personnage ");
+                System.out.println("  ");
 
+
+                choice = 0;
+
+                choice = scanner.nextInt();
+                player = db.getOneHero(choice);
+
+                System.out.println(player.getId() + player.getCharacterRole());
 
                 break;
 
@@ -91,13 +107,13 @@ public class Menu {
                 getName();
 
                 // perso BDD
-                db.createHero(player.getCharacterRole() , player.getCharacterName(), player.getLife(), player.getAttack());
+                player = db.createHero(player.getCharacterRole(), player.getCharacterName(), player.getLife(), player.getAttack());
+
+                System.out.println(player.getId() + player.getCharacterRole());
                 break;
         }
-
+        choice = 0;
         return player;
-
-
     }
 
     public void getName() {
@@ -114,13 +130,10 @@ public class Menu {
 
     }
 
-    // choix du type de perso et attribuer la vie et l'attaque
-
-    public void characterType() {
-
+    public int  typeChoice() {
         Scanner scanner = new Scanner(System.in);
-        int choix = 0;
-        while (choix != 1 && choix != 2) {
+        choice = 0;
+        while (choice != 1 && choice != 2) {
 
             System.out.println("  ");
             System.out.println("********************* * * * * * **********************");
@@ -134,20 +147,65 @@ public class Menu {
             System.out.println("  ");
 
 
-            choix = scanner.nextInt();
+            choice = scanner.nextInt();
 
-            if (choix != 1 && choix != 2) {
+            if (choice != 1 && choice != 2) {
                 System.out.println("Choix invalide. Veuillez choisir entre un Guerrier ou un Magicien");
             }
         }
+        return choice;
 
-        String characterRole;
+    }
 
-        switch (choix) {
+    public void playOrUpdate() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (choice != 1 && choice != 2 && choice != 3) {
+
+            System.out.println("***  1 jouer / 2 Modifier le joueur / 3 Quitter ***");
+
+            choice = scanner.nextInt();
+            if (choice != 1 && choice != 2 && choice != 3) {
+                System.out.println("Choix invalide. Veuillez choisir entre jouer ou Modifier vos infos ");
+            }
+        }
+
+        switch (choice) {
+            case 1:
+                // jouer
+                break;
+            case 2:
+
+                updateNameOrType();
+                break;
+            case 3:
+                System.out.println(" Vous avez Quitter le Jeux !!!");
+                exit(0);
+                break;
+            default:
+
+        }
+
+
+    }
+
+
+
+    // choix du type de perso et attribuer la vie et l'attaque
+
+    public void characterType() {
+
+        choice = typeChoice();
+
+
+
+        switch (choice) {
             case 1:
 
                 player = new Warrior();
                 player.setCharacterRole("Guerrier");
+
 
                 break;
             case 2:
@@ -158,6 +216,7 @@ public class Menu {
             default:
                 System.out.println("Personnage non reconnu.");
         }
+        choice = 0;
 
         System.out.println("********************* * * * * * **********************");
         System.out.println(" ");
@@ -185,37 +244,7 @@ public class Menu {
     }
 
 
-    public void playOrUpdate() {
-        choice = 0;
-        Scanner scanner = new Scanner(System.in);
 
-        while (choice != 1 && choice != 2 && choice != 3) {
-
-            System.out.println("***  1 jouer / 2 Modifier le joueur/ 3 Quitter ***");
-
-            choice = scanner.nextInt();
-            if (choice != 1 && choice != 2 && choice != 3) {
-                System.out.println("Choix invalide. Veuillez choisir entre jouer ou Modifier vos infos ");
-            }
-        }
-
-        switch (choice) {
-            case 1:
-                System.out.println(" ALLER C'EST REPARTI !!!!!!!");
-                // jouer
-                break;
-            case 2:
-
-                updateNameOrType();
-
-            case 3:
-                System.out.println(" Vous avez Quitter le Jeux !!!");
-                exit(0);
-                break;
-
-        }
-
-    }
 
 
     public void updateNameOrType() {
@@ -223,7 +252,7 @@ public class Menu {
         choice = 0;
         while (choice != 1 && choice != 2) {
 
-            System.out.println("***  Mmodifier  / 1  Nom  / 2 Type de Personnage  ***");
+            System.out.println("***  Modifier  / 1  Nom  / 2 Type de Personnage  ***");
 
             Scanner scanner = new Scanner(System.in);
 
@@ -232,74 +261,72 @@ public class Menu {
             if (choice != 1 && choice != 2) {
                 System.out.println("Choix invalide. Veuillez choisir entre jouer ou Modifier vos infos ");
             }
+
         }
 
 
         switch (choice) {
             case 1:
-                Scanner nameScane = new Scanner(System.in);
-                System.out.println("Veuillez modifier votre nom : ");
-                String name = nameScane.nextLine();
 
-                db.editNameHero(name);
+                Scanner nameScanner = new Scanner(System.in);
+                System.out.println("Veuillez modifier votre nom : ");
+                String name = nameScanner.nextLine();
+                player = db.updatePlayerName(name, player.getId());
+
+                nameScanner.close();
 
                 playOrUpdate();
-
                 break;
             case 2:
 
-                Scanner scanner = new Scanner(System.in);
-                choice = 0;
-                while (choice != 1 && choice != 2) {
+                choice = typeChoice();
 
-                    System.out.println("  ");
-                    System.out.println("********************* * * * * * **********************");
-                    System.out.println("*                                                    *");
-                    System.out.println("*  Choisissez un personnage                          *");
-                    System.out.println("*                                                    *");
-                    System.out.println("*    1. Guerrier                                     *");
-                    System.out.println("*    2. Magicien                                     *");
-                    System.out.println("*                                                    *");
-                    System.out.println("********************* * * * * * **********************");
-                    System.out.println("  ");
+                int id = player.getId();
+                String namePlayer = player.getCharacterName();
 
-
-                    choice = scanner.nextInt();
-
-                    if (choice != 1 && choice != 2) {
-                        System.out.println("Choix invalide. Veuillez choisir entre un Guerrier ou un Magicien");
-                    }
-                }
-                String characterRole;
                 if (choice == 1) {
 
-                    characterRole = "Guerrier";
-                    db.ediTypeHero(characterRole);
+                    player = new Warrior();
+                    player.setId(id);
+                    player.setCharacterName(namePlayer);
+
+
+
+                    db.updateTypeHero(player.getCharacterRole(), 10, 10, player.getId());
+
                     playOrUpdate();
 
                 } else if (choice == 2) {
 
-                    characterRole = "Magicien";
-                    db.ediTypeHero(characterRole);
-                    playOrUpdate();
+                    player = new Wizard();
+                    player.setId(id);
+                    player.setCharacterName(namePlayer);
 
+
+                    db.updateTypeHero(player.getCharacterRole(), 6, 15, player.getId());
+
+
+                    playOrUpdate();
 
                 } else {
                     System.out.println("Erreure Modification Role");
                 }
 
-
+                break;
         }
 
+        choice = 0;
+        playOrUpdate();
 
     }
 
     public String updateName(String name) {
 
-        Scanner nameScane = new Scanner(System.in);
+        Scanner nameScanner = new Scanner(System.in);
         System.out.println("Veuillez modifier votre nom : ");
-        name = nameScane.nextLine();
+        name = nameScanner.nextLine();
         player.setCharacterName(name);
+        nameScanner.close();
         return name;
 
     }
@@ -325,6 +352,19 @@ public class Menu {
         System.out.println("  Tu est sur la case  n° " + updatePosition);
 
         return updatePosition;
+    }
+
+    public void playerLife() {
+        if (player.getLife() == 0) {
+
+            System.out.println("********************* * * * * * **********************");
+            System.out.println("*                                                    *");
+            System.out.println("*     Votre personnage est mort fin du jeux !!!      *");
+            System.out.println("*                                                    *");
+            System.out.println("********************* * * * * * **********************");
+            exit(0);
+            //break; // Sorti de la boucle
+        }
     }
 
 }

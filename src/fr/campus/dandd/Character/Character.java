@@ -8,8 +8,11 @@ public abstract class Character {
     private String characterRole;
     private String characterName;
 
+
       int life;
       int attack;
+
+
 
     public Character() {
     }

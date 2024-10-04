@@ -1,9 +1,11 @@
 package fr.campus.dandd.Item;
 
+import fr.campus.dandd.Db.Db;
+
 import java.util.Scanner;
 
 public class Potion extends EquipmentOffensive {
-
+    Db db = new Db();
     public Potion() {
     }
 
@@ -38,6 +40,7 @@ public class Potion extends EquipmentOffensive {
         switch (choix) {
             case 1:
                 life += 2;
+
                 setPotion("Potion de vie standard");
                 break;
             case 2:
