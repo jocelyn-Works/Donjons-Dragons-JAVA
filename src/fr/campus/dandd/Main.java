@@ -1,6 +1,6 @@
 package fr.campus.dandd;
 
-import fr.campus.dandd.Play.Game;
+import fr.campus.dandd.play.Game;
 
 public class Main {
 

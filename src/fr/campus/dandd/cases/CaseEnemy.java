@@ -1,7 +1,7 @@
-package fr.campus.dandd.Case;
+package fr.campus.dandd.cases;
 
-import fr.campus.dandd.Enemy.Enemy;
-import fr.campus.dandd.Character.Character;
+import fr.campus.dandd.enemy.Enemy;
+import fr.campus.dandd.character.Character;
 
 public class CaseEnemy implements Case {
 

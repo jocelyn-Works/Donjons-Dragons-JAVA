@@ -1,7 +1,4 @@
-package fr.campus.dandd.Item;
-
-import fr.campus.dandd.Character.Character;
-import fr.campus.dandd.Db.Db;
+package fr.campus.dandd.item;
 
 import java.util.Scanner;
 

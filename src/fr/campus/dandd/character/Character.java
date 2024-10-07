@@ -1,4 +1,4 @@
-package fr.campus.dandd.Character;
+package fr.campus.dandd.character;
 
 public abstract class Character {
 
@@ -74,7 +74,7 @@ public abstract class Character {
 
 
     public String toString() {
-        return "   Personnage : " + characterName + "\n" + "   Role :" + characterRole + "\n"+ "   Niveau de vie : " + life+ "\n" + "   Force : " + attack;
+        return "   Personnage : " + characterName + "\n" + "   Role : " + characterRole + "\n"+ "   Niveau de vie : " + life+ "\n" + "   Force : " + attack;
     }
 
 

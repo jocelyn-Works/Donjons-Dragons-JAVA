@@ -1,4 +1,4 @@
-package fr.campus.dandd.Enemy;
+package fr.campus.dandd.enemy;
 
 public class Dragon extends Enemy {
 

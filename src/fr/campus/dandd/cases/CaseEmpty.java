@@ -1,5 +1,5 @@
-package fr.campus.dandd.Case;
-import fr.campus.dandd.Character.Character;
+package fr.campus.dandd.cases;
+import fr.campus.dandd.character.Character;
 
 public class CaseEmpty implements Case {
 

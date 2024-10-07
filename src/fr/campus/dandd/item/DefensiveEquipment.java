@@ -1,4 +1,4 @@
-package fr.campus.dandd.Item;
+package fr.campus.dandd.item;
 
 abstract class DefensiveEquipment extends Item {
 

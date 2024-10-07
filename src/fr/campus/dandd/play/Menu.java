@@ -1,9 +1,9 @@
-package fr.campus.dandd.Play;
+package fr.campus.dandd.play;
 
-import fr.campus.dandd.Character.Character;
-import fr.campus.dandd.Character.Warrior;
-import fr.campus.dandd.Character.Wizard;
-import fr.campus.dandd.Db.Db;
+import fr.campus.dandd.character.Character;
+import fr.campus.dandd.character.Warrior;
+import fr.campus.dandd.character.Wizard;
+import fr.campus.dandd.db.Db;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -58,11 +58,9 @@ public class Menu {
 
         System.out.println("  ");
         System.out.println("********************* * * * * * **********************");
-        System.out.println("******************************************************");
-        System.out.println("******************************************************");
-        System.out.println("****************   Donjons et Dragons   **************");
-        System.out.println("******************************************************");
-        System.out.println("******************************************************");
+        System.out.println("******                                         *******");
+        System.out.println("******   D O N J O N S   E T   D R A G O N S   *******");
+        System.out.println("******                                         *******");
         System.out.println("********************* * * * * * **********************");
         System.out.println("  ");
 
@@ -104,8 +102,6 @@ public class Menu {
                 choice = scanner.nextInt();
                 player = db.getOneHero(choice);
 
-                System.out.println(player.getId() + player.getCharacterRole());
-
                 break;
 
             case 2:
@@ -116,7 +112,6 @@ public class Menu {
                 // perso BDD
                 player = db.createHero(player.getCharacterRole(), player.getCharacterName(), player.getLife(), player.getAttack());
 
-                System.out.println(player.getId() + player.getCharacterRole());
                 break;
         }
         choice = 0;

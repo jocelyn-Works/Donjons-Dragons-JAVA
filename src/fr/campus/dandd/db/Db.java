@@ -1,8 +1,8 @@
-package fr.campus.dandd.Db;
+package fr.campus.dandd.db;
 
-import fr.campus.dandd.Character.Character;
-import fr.campus.dandd.Character.Warrior;
-import fr.campus.dandd.Character.Wizard;
+import fr.campus.dandd.character.Character;
+import fr.campus.dandd.character.Warrior;
+import fr.campus.dandd.character.Wizard;
 
 import java.sql.*;
 
@@ -58,9 +58,10 @@ public class Db {
                 int life = rs.getInt("life");
                 int attack = rs.getInt("attack");
                 String weapon = rs.getString("weapon");
+                String potion = rs.getString("potion");
 
 
-                System.out.println(id + " =>  " + player_type + " , Nom: " + playerName + " , life :" + life + " , Attack : " + attack + " , Arme : " + weapon);
+                System.out.println(id + " =>  " + player_type + " , Nom: " + playerName + " , life :" + life + " , Attack : " + attack + " , Arme : " + weapon + " , Potion : " + potion);
 
 
             }
@@ -148,9 +149,10 @@ public class Db {
                 int life = res.getInt("life");
                 int attack = res.getInt("attack");
                 String weapon = res.getString("weapon");
+                String potion = res.getString("potion");
 
                 System.out.println("    ");
-                System.out.println(" Votre Choix  => " + player_type + " , Nom: " + player_name + " , life :" + life + " , Attack : " + attack + " , Arme : " + weapon);
+                System.out.println(" Votre Choix  => " + player_type + " , Nom: " + player_name + " , life :" + life + " , Attack : " + attack + " , Arme : " + weapon + " , Potion : " + potion);
                 System.out.println("     ");
 
                 if (player_type.equals("Guerrier")) {
@@ -266,11 +268,11 @@ public class Db {
 
 
         try {
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, attack);
-            stmt.setInt(2, playerId);
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, attack);
+            pstmt.setInt(2, playerId);
 
-            stmt.executeUpdate();
+            pstmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

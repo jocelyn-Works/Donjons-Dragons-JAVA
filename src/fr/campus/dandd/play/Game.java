@@ -1,24 +1,21 @@
-package fr.campus.dandd.Play;
+package fr.campus.dandd.play;
 
-import fr.campus.dandd.Case.Case;
-import fr.campus.dandd.Case.CaseEmpty;
-import fr.campus.dandd.Case.CaseEnemy;
-import fr.campus.dandd.Case.CaseItem;
-import fr.campus.dandd.Character.Character;
-import fr.campus.dandd.Character.Warrior;
-import fr.campus.dandd.Character.Wizard;
-import fr.campus.dandd.Item.Weapon;
-import fr.campus.dandd.Enemy.Dragon;
-import fr.campus.dandd.Enemy.Gobelin;
-import fr.campus.dandd.Enemy.Sorcrer;
-import fr.campus.dandd.Item.Potion;
-import fr.campus.dandd.Item.Spell;
-import fr.campus.dandd.Db.Db;
+import fr.campus.dandd.cases.Case;
+import fr.campus.dandd.cases.CaseEmpty;
+import fr.campus.dandd.cases.CaseEnemy;
+import fr.campus.dandd.cases.CaseItem;
+import fr.campus.dandd.character.Character;
+import fr.campus.dandd.character.Warrior;
+import fr.campus.dandd.item.Weapon;
+import fr.campus.dandd.enemy.Dragon;
+import fr.campus.dandd.enemy.Gobelin;
+import fr.campus.dandd.enemy.Sorcerer;
+import fr.campus.dandd.item.Potion;
+import fr.campus.dandd.item.Spell;
+import fr.campus.dandd.db.Db;
 
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Game {
 
@@ -69,88 +66,86 @@ public class Game {
      */
     public void createBoard() {
 
-        for (int i = 0; i < 64; i++) {
+            Case currentCase = new CaseEmpty();
+            int i = position;
 
-            Random randomEnemy = new Random();
+            switch (i) {
+                case 45: case 52: case 56: case 62:
+                    currentCase = new CaseEnemy();
+                    Dragon dragon = new Dragon();
+                    dragon.fight(player);
+                    ((CaseEnemy) currentCase).setEnemy(dragon);
+                    break;
 
-            int randomType = randomEnemy.nextInt(6) + 1;
+                case 10: case 20: case 25: case 32: case 35:
+                case 36: case 37: case 40: case 44: case 47:
+                    currentCase = new CaseEnemy();
+                    Sorcerer sorcerer = new Sorcerer();
+                    sorcerer.fight(player);
+                    ((CaseEnemy) currentCase).setEnemy(sorcerer);
+                    break;
 
-            Case currentCase;
-
-            if (randomType == 1) {
-                currentCase = new CaseEnemy();
-                Gobelin gobelin = new Gobelin();
-                gobelin.fight(player);
-                ((CaseEnemy) currentCase).setEnemy(gobelin);
-
-            } else if (randomType == 2) {
-
-                currentCase = new CaseEnemy();
-                Sorcrer sorcrer = new Sorcrer();
-                sorcrer.fight(player);
-                ((CaseEnemy) currentCase).setEnemy(sorcrer);
-
-
-            } else if (randomType == 3) {
-
-                currentCase = new CaseEnemy();
-                Dragon dragon = new Dragon();
-                dragon.fight(player);
-                ((CaseEnemy) currentCase).setEnemy(dragon);
-
-            } else if (randomType == 4) {
-
-                currentCase = new CaseEmpty();
-
-            } else if (randomType == 5) {
-                currentCase = new CaseItem();
-
-                Potion potion = new Potion();
-
-                int updatePlayerLife = potion.newPotion(player.getLife());
-                player.setLife(updatePlayerLife);
-
-                db.updatelifeHero(player.getLife(), player.getId());
-
-                db.updatePotionHero(potion.getPotion(), player.getId());
-
-                ((CaseItem) currentCase).setItem(potion);
+                case 3: case 6: case 9: case 12: case 15:
+                case 18: case 21: case 24: case 27: case 30:
+                    currentCase = new CaseEnemy();
+                    Gobelin gobelin = new Gobelin();
+                    gobelin.fight(player);
+                    ((CaseEnemy) currentCase).setEnemy(gobelin);
+                    break;
 
 
-            } else {
 
-                if (player.getCharacterRole().equals("Guerrier")) {
+                case 2: case 11: case 5: case 22: case 38: case 19: case 26: case 42: case 53:
+                if(player.getCharacterRole().equals("Guerrier")){
+
                     currentCase = new CaseItem();
-
                     Weapon weapon = new Weapon();
-                    int updatePlayerAttack = weapon.warriorWeapon(player.getAttack());
-                    player.setAttack(updatePlayerAttack);
-
+                    int updateClubAttack = weapon.warriorWeapon(player.getAttack());
+                    player.setAttack(updateClubAttack);
                     db.updateWeaponnHero(weapon.getWeapon(), player.getId());
                     db.updateAtackHero(player.getAttack(), player.getId());
-
                     ((CaseItem) currentCase).setItem(weapon);
-                } else if (player.getCharacterRole().equals("Magicien")) {
-                    currentCase = new CaseItem();
-                    Spell spell = new Spell();
-                    int updatePlayerAttack = spell.spellMagician(player.getAttack());
-                    player.setAttack(updatePlayerAttack);
-
-                    db.updateWeaponnHero(spell.getWeapon(), player.getId());
-                    db.updateAtackHero(player.getAttack(), player.getId());
-
-                    ((CaseItem) currentCase).setItem(spell);
-
-                } else {
-
-                    currentCase = new CaseEmpty();
-                    System.out.print(" erreure création plateau  Guerrier  /  Magicien");
                 }
+                    break;
+
+
+
+                case 1: case 4: case 8: case 17: case 23:  case 48: case 49:
+                    if(player.getCharacterRole().equals("Magicien")){
+
+                        currentCase = new CaseItem();
+                        Spell spell = new Spell();
+                        int updateLightningAttack = spell.spellMagician(player.getAttack());
+                        player.setAttack(updateLightningAttack);
+                        db.updateWeaponnHero(spell.getWeapon(), player.getId());
+                        db.updateAtackHero(player.getAttack(), player.getId());
+                        ((CaseItem) currentCase).setItem(spell);
+                    }
+                    break;
+
+
+
+                case 7: case 13: case 31: case 33: case 39: case 43:  case 28: case 41:
+                    currentCase = new CaseItem();
+                    Potion potion = new Potion();
+                    int updatePlayerLife = potion.newPotion(player.getLife());
+                    player.setLife(updatePlayerLife);
+                    db.updatelifeHero(player.getLife(), player.getId());
+                    db.updatePotionHero(potion.getPotion(), player.getId());
+                    ((CaseItem) currentCase).setItem(potion);
+                    break;
+
+
+                default:
+                    currentCase = new CaseEmpty();
+                    break;
             }
 
             board.add(currentCase);
-        }
+
     }
+
+
 
     /**
      * desc : lancer le jeu avec l'appel des méthodes
@@ -163,8 +158,7 @@ public class Game {
         player = menu.choicePlayer();
 
 
-        // plateau
-       createBoard();
+
 
         while (true) {
 
@@ -177,6 +171,8 @@ public class Game {
             //   -----------------------------   lancer les D -------------- // ---   Position Perso --- //
             int updatePosition = menu.gamingDice(round, position);
             setPosition(updatePosition);
+
+
 
             // ---------------------------------  double D ---------------------------------- //
 
@@ -193,9 +189,11 @@ public class Game {
             System.out.println(player); // player weapon
 
             // --------------------------------- création du plateau --------------------------- //
+            // ------------------------------------ Plateau ------------------------------------ //
 
-            Case currentCase = board.get(position);
-            currentCase.interacte(player);
+            createBoard();
+//            Case currentCase = board.get(position);
+//            currentCase.interacte(player);
 
             // **********************************  fin du jeu *************************************** //
             // --------------------------  vie a 0 --------------------------------//

@@ -1,4 +1,4 @@
-package fr.campus.dandd.Character;
+package fr.campus.dandd.character;
 
 public class Warrior extends Character {
     private int updateRound;

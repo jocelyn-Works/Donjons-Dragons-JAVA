@@ -1,8 +1,8 @@
-package fr.campus.dandd.Case;
+package fr.campus.dandd.cases;
 
 
-import fr.campus.dandd.Item.Item;
-import fr.campus.dandd.Character.Character;
+import fr.campus.dandd.item.Item;
+import fr.campus.dandd.character.Character;
 
 public class CaseItem implements Case {
 

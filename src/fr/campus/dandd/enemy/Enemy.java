@@ -1,8 +1,7 @@
-package fr.campus.dandd.Enemy;
+package fr.campus.dandd.enemy;
 
-import fr.campus.dandd.Character.Character;
-import fr.campus.dandd.Db.Db;
-import fr.campus.dandd.Play.Game;
+import fr.campus.dandd.character.Character;
+import fr.campus.dandd.db.Db;
 
 import java.util.Scanner;
 
@@ -104,8 +103,6 @@ public abstract class Enemy {
 
             System.out.println(" ");
             System.out.println("********************* * * * * * **********************");
-
-
         }
 
         System.out.println("  ");
