@@ -51,6 +51,9 @@ public class Menu {
 
     }
 
+    /**
+     * desc : Commencer le Jeux
+     */
     public void welcome() {
 
         System.out.println("  ");
@@ -69,6 +72,10 @@ public class Menu {
         scanner.nextLine();
     }
 
+    /**
+     *  desc : choix entre récuperer  ou crée un personnage
+     * @return
+     */
     public Character choicePlayer() {
 
         choice = 0;
@@ -116,6 +123,9 @@ public class Menu {
         return player;
     }
 
+    /**
+     * desc : choix du Nom du perssonnage
+     */
     public void getName() {
 
         try {
@@ -129,6 +139,7 @@ public class Menu {
         }
 
     }
+
 
     public int  typeChoice() {
         Scanner scanner = new Scanner(System.in);
@@ -157,6 +168,12 @@ public class Menu {
 
     }
 
+    /**
+     * desc : Menu du Jeux pour :
+     * 1 jouer
+     * 2 modification :  ( nom ou role  )
+     * 3 Quitter
+     */
     public void playOrUpdate() {
 
         Scanner scanner = new Scanner(System.in);
@@ -191,9 +208,9 @@ public class Menu {
     }
 
 
-
-    // choix du type de perso et attribuer la vie et l'attaque
-
+    /**
+     * desc : choix du type de perso et attribuer la vie et l'attaque
+     */
     public void characterType() {
 
         choice = typeChoice();
@@ -244,9 +261,9 @@ public class Menu {
     }
 
 
-
-
-
+    /**
+     * desc : Modification du Nom ou du Role du perssonnages
+     */
     public void updateNameOrType() {
 
         choice = 0;
@@ -271,6 +288,7 @@ public class Menu {
                 Scanner nameScanner = new Scanner(System.in);
                 System.out.println("Veuillez modifier votre nom : ");
                 String name = nameScanner.nextLine();
+                player.setCharacterName(name);
                 player = db.updatePlayerName(name, player.getId());
 
                 nameScanner.close();
@@ -320,18 +338,13 @@ public class Menu {
 
     }
 
-    public String updateName(String name) {
 
-        Scanner nameScanner = new Scanner(System.in);
-        System.out.println("Veuillez modifier votre nom : ");
-        name = nameScanner.nextLine();
-        player.setCharacterName(name);
-        nameScanner.close();
-        return name;
-
-    }
-
-
+    /**
+     *  desc : les 2 dé de jeux + la Position de la case du joueur
+     * @param round
+     * @param position
+     * @return
+     */
     public int gamingDice(int round, int position) {
 
         System.out.println("  ");
@@ -354,6 +367,10 @@ public class Menu {
         return updatePosition;
     }
 
+    /**
+     * desc : Verifie la vie du joueur
+     * si elle est a 0 FIN de JEUX !!!
+     */
     public void playerLife() {
         if (player.getLife() == 0) {
 

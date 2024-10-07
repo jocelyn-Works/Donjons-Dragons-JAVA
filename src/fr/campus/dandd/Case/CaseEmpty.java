@@ -9,6 +9,9 @@ public class CaseEmpty implements Case {
 
     }
 
+    /**
+     *  desc : création d'une case vide
+     */
     public CaseEmpty() {
         System.out.println("  ");
         System.out.println("********************* * * * * * **********************");

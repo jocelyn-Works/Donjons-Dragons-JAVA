@@ -6,6 +6,12 @@ public class Spell extends EquipmentOffensive {
     public Spell() {
 
     }
+
+    /**
+     *  desc : Menu: Choix dune arme pour le joueur
+     * @param attack  récuperer l'attaque du joueur
+     * @return la nouvelle attaque du joueur
+     */
     public int spellMagician( int attack) {
 
         int choix = 0;

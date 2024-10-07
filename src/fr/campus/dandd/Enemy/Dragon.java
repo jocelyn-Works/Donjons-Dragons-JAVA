@@ -3,7 +3,9 @@ package fr.campus.dandd.Enemy;
 public class Dragon extends Enemy {
 
 
-
+    /**
+     * desc : Création d'un Dragon aves son Nom , sa Vie et son Attaque
+     */
     public Dragon() {
         setEnemyName("Dragon");
         setEnemyAttack(4);

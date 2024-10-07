@@ -1,19 +1,23 @@
 package fr.campus.dandd.Item;
 
+import fr.campus.dandd.Character.Character;
 import fr.campus.dandd.Db.Db;
 
 import java.util.Scanner;
 
 public class Potion extends EquipmentOffensive {
-    Db db = new Db();
+
+
     public Potion() {
+
     }
 
-//    public void interacte() {
-//        System.out.println(" Vous etes tomber sur " + getPotion() + " !!!!");
-//        System.out.println(" ");
-//    }
 
+    /**
+     *  desc : Menu Choix dune potion pour le joueur
+     * @param life  récuperer la vie du joueur
+     * @return  nouvelle potion du joueur
+     */
     public int newPotion(int life) {
     int choix = 0;
 
@@ -23,8 +27,8 @@ public class Potion extends EquipmentOffensive {
             System.out.println("********************* * * * * * **********************");
             System.out.println("*    Vous etes tomber sur une  potions !!!!          *");
             System.out.println("*                                                    *");
-            System.out.println("*                                                    *");
             System.out.println("*        Choisissez une potions  :                   *");
+            System.out.println("*                                                    *");
             System.out.println("*  1. Potion de vie standard : rends 2 points de vie *");
             System.out.println("*  2. Grande potion de vie : rends 5 points de vie   *");
             System.out.println("*                                                    *");
@@ -40,12 +44,11 @@ public class Potion extends EquipmentOffensive {
         switch (choix) {
             case 1:
                 life += 2;
-
-                setPotion("Potion de vie standard");
+                setPotion("Potion standard");
                 break;
             case 2:
                 life += 5;
-                setPotion("Grande potion de vie");
+                setPotion("Grande potion");
                 break;
         }
 

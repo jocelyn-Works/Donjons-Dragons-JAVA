@@ -17,6 +17,11 @@ public abstract class Character {
     public Character() {
     }
 
+    /**
+     * desc : Création d'un joueur
+     * @param characterName nom du joueur
+     * @param characterRole Role du joueur
+     */
     public Character(String characterName, String characterRole) {
 
         this.characterName = characterName;

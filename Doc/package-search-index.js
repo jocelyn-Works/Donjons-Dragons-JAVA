@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"fr.campus.dandd"},{"l":"fr.campus.dandd.Case"},{"l":"fr.campus.dandd.Character"},{"l":"fr.campus.dandd.Db"},{"l":"fr.campus.dandd.Enemy"},{"l":"fr.campus.dandd.Item"},{"l":"fr.campus.dandd.Play"}];updateSearchResults();

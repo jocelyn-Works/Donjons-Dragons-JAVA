@@ -1,6 +1,7 @@
 package fr.campus.dandd.Enemy;
 
 import fr.campus.dandd.Character.Character;
+import fr.campus.dandd.Db.Db;
 import fr.campus.dandd.Play.Game;
 
 import java.util.Scanner;
@@ -12,6 +13,8 @@ public abstract class Enemy {
     int enemyLife;
 
     int choix = 0;
+
+    Db db = new Db();
 
 
     public String getEnemyName() {
@@ -38,7 +41,10 @@ public abstract class Enemy {
         this.enemyAttack = enemyAttack;
     }
 
-
+    /**
+     *  desc : Instacie un Combat entre un Ennemie et le Joueur
+     * @param player
+     */
     public void fight(Character player) {
 
         System.out.println("  ");
@@ -47,11 +53,12 @@ public abstract class Enemy {
         System.out.println("attack  : " + enemyAttack + " " + " vie : " + enemyLife);
 
 
-        while (player.getLife() > 0 && getEnemyLife() > 0) {
+        while (player.getLife() >= 0 && getEnemyLife() >= 0) {
 
             System.out.println("le " + getEnemyName() + " vous attaque de " + getEnemyAttack() + " ");
 
             player.setLife(player.getLife() - getEnemyAttack());
+            db.updatelifeHero(player.getLife(), player.getId());
             System.out.println("Votre vie actuelle : " + player.getLife());
 
 
@@ -88,8 +95,6 @@ public abstract class Enemy {
 
             if (getEnemyLife() <= 0) {
                 System.out.println("Vous avez tué" + getEnemyName() + " !");
-
-
                 break;
             }
             if (player.getLife() <= 0) {

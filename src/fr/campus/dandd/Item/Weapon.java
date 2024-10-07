@@ -1,14 +1,25 @@
 package fr.campus.dandd.Item;
 
+import fr.campus.dandd.Character.Character;
+import fr.campus.dandd.Db.Db;
+
 import java.util.Scanner;
 
 public class Weapon extends EquipmentOffensive {
+
+
     public Weapon() {
 
     }
 
+    /**
+     *  desc : Menu: Choix dune arme pour le joueur
+     * @param attack  récuperer l'attaque du joueur
+     * @return la nouvelle attaque du joueur
+     */
     public int warriorWeapon(int attack) {
         int choix = 0;
+
 
         while (choix != 1 && choix != 2) {
 
@@ -37,10 +48,12 @@ public class Weapon extends EquipmentOffensive {
             case 1:
                 setWeapon("Massue");
                 attack += 3;
+
                 break;
             case 2:
                 setWeapon("Epée");
                 attack += 5;
+
                 break;
         }
         return attack;

@@ -59,7 +59,14 @@ public class Game {
     Character player;
 
 
-
+    /**
+     * desc : Création du plateau avec la position aléatoire
+     * d'un Ennemi ( Gobelin , Dragon , Sorcier )
+     *  d'une Case Vide
+     *  d'une Potion
+     *  d'une Arme en fonction du Role choisie par le joueur
+     *
+     */
     public void createBoard() {
 
         for (int i = 0; i < 64; i++) {
@@ -99,8 +106,13 @@ public class Game {
                 currentCase = new CaseItem();
 
                 Potion potion = new Potion();
+
                 int updatePlayerLife = potion.newPotion(player.getLife());
                 player.setLife(updatePlayerLife);
+
+                db.updatelifeHero(player.getLife(), player.getId());
+
+                db.updatePotionHero(potion.getPotion(), player.getId());
 
                 ((CaseItem) currentCase).setItem(potion);
 
@@ -114,12 +126,19 @@ public class Game {
                     int updatePlayerAttack = weapon.warriorWeapon(player.getAttack());
                     player.setAttack(updatePlayerAttack);
 
+                    db.updateWeaponnHero(weapon.getWeapon(), player.getId());
+                    db.updateAtackHero(player.getAttack(), player.getId());
+
                     ((CaseItem) currentCase).setItem(weapon);
                 } else if (player.getCharacterRole().equals("Magicien")) {
                     currentCase = new CaseItem();
                     Spell spell = new Spell();
                     int updatePlayerAttack = spell.spellMagician(player.getAttack());
                     player.setAttack(updatePlayerAttack);
+
+                    db.updateWeaponnHero(spell.getWeapon(), player.getId());
+                    db.updateAtackHero(player.getAttack(), player.getId());
+
                     ((CaseItem) currentCase).setItem(spell);
 
                 } else {
@@ -133,7 +152,10 @@ public class Game {
         }
     }
 
-
+    /**
+     * desc : lancer le jeu avec l'appel des méthodes
+     * dans un ordre précis pour construire le Jeux
+     */
     public void play() {
 
         Menu menu = new Menu();
@@ -142,7 +164,7 @@ public class Game {
 
 
         // plateau
-       // createBoard();
+       createBoard();
 
         while (true) {
 
@@ -172,8 +194,8 @@ public class Game {
 
             // --------------------------------- création du plateau --------------------------- //
 
-//            Case currentCase = board.get(position);
-//            currentCase.interacte(player);
+            Case currentCase = board.get(position);
+            currentCase.interacte(player);
 
             // **********************************  fin du jeu *************************************** //
             // --------------------------  vie a 0 --------------------------------//

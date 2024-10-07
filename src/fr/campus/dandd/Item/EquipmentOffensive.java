@@ -7,7 +7,10 @@ public abstract class EquipmentOffensive extends Item {
 
     private int choix = 0;
 
-
+    public EquipmentOffensive(String weapon, String potion) {
+        this.weapon = weapon;
+        this.potion = potion;
+    }
 
     public String getWeapon() {
         return weapon;
@@ -21,15 +24,13 @@ public abstract class EquipmentOffensive extends Item {
         return potion;
     }
 
-    public void setPotion(String weapon) {
+    public void setPotion(String potion) {
         this.potion = potion;
     }
 
     public EquipmentOffensive() {
 
     }
-
-
 
 
 

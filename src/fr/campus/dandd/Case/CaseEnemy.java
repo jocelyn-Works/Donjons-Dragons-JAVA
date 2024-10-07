@@ -11,6 +11,10 @@ public class CaseEnemy implements Case {
         return enemy;
     }
 
+    /**
+     *  desc : Initie un combat entre un ennemi et un joueur
+     * @param player récuper le joueur et ces attributs ( vie , attaque ... )
+     */
     @Override
     public void interacte(Character player){
         enemy.fight(player);

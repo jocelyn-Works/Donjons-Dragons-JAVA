@@ -15,11 +15,16 @@ public class Db {
     private final String password = "jojo291295";
     private Connection con;
 
-
+    /**
+     * desc : instacie la connection lors de lappel de la classe Db
+     */
     public Db() {
         getConnection();
     }
 
+    /**
+     * desc : Connection a la Base de Donné
+     */
     public void getConnection() {
         try {
             Class.forName(driverName);
@@ -35,12 +40,14 @@ public class Db {
         }
     }
 
-
+    /**
+     * desc : Récupére tous les utilisateurs de la table hero
+     */
     public void getAllHero() {
 
         String query = "SELECT * FROM hero";
         try {
-            Statement stmt = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement(query);
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
@@ -62,6 +69,15 @@ public class Db {
             System.out.println(ex.getMessage());
         }
     }
+
+    /**
+     * desc : Crée un perssonnage en bdd
+     * @param role
+     * @param name
+     * @param life
+     * @param attack
+     * @return
+     */
     public Character createHero(String role, String name, int life, int attack) {
         String query = "INSERT INTO hero ( player_type, player_name, life, attack) VALUES (  ?, ?, ?, ?)";
 
@@ -110,6 +126,11 @@ public class Db {
     }
 
 
+    /**
+     *  desc : récupére un perssonnage en BDD grace a son ID
+     * @param playerId
+     * @return
+     */
     public Character getOneHero(int playerId) {
         String query = "SELECT * FROM hero WHERE id = " + playerId;
 
@@ -163,9 +184,12 @@ public class Db {
     }
 
 
-
-
-
+    /**
+     *  desc : Modifie le Nom du perssonnage
+     * @param name
+     * @param playerId
+     * @return
+     */
     public Character updatePlayerName(String name, int playerId) {
         String query = "UPDATE hero SET player_name = ? WHERE id = ?";
         Character player = null;
@@ -184,6 +208,13 @@ public class Db {
 
     }
 
+    /**
+     *  desc : Modifie le rôle du perssonnage en lui réattribuant ses attributs en fonction du choix
+     * @param role
+     * @param life
+     * @param attack
+     * @param playerId
+     */
     public void updateTypeHero(String role, int life, int attack, int playerId) {
         String query = "UPDATE  hero SET player_type = ? , life = ? , attack = ?  WHERE id = ?";
 
@@ -203,10 +234,14 @@ public class Db {
 
     }
 
+    /**
+     * desc : Modifie la vie du perssonnage BDD
+     * @param life
+     * @param playerId
+     * @return la vie mise a jour
+     */
     public int updatelifeHero(int life, int playerId) {
         String query = "UPDATE  hero SET life = ? WHERE id = ?";
-
-
 
         try {
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -220,38 +255,57 @@ public class Db {
         return life;
     }
 
+    /**
+     * desc : Modifie l'attaque du perssonnage BDD
+     * @param attack
+     * @param playerId
+     * @return l' Attaque  mise a jour
+     */
     public int updateAtackHero(int attack, int playerId) {
         String query = "UPDATE  hero SET attack = ? WHERE id = ?";
 
 
         try {
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, attack);
-            pstmt.setInt(2, playerId);
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, attack);
+            stmt.setInt(2, playerId);
 
-            pstmt.executeUpdate();
+            stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return attack;
     }
 
+    /**
+     *  desc : Modifie l' Arme du pessonnage
+     * @param weapon
+     * @param playerId
+     * @return  l' Arme mise a jour
+     */
     public String updateWeaponnHero(String weapon, int playerId) {
         String query = "UPDATE  hero SET weapon = ? WHERE id = ?";
 
 
         try {
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, weapon);
-            pstmt.setInt(2, playerId);
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, weapon);
+            stmt.setInt(2, playerId);
 
-            pstmt.executeUpdate();
+            stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return weapon;
     }
 
+
+    /**
+     *  desc : Modifie la Potion du perssonnage en BDD
+     * @param potion
+     * @param playerId
+     * @return  la Potion mise a jour
+     */
     public String updatePotionHero(String potion, int playerId) {
         String query = "UPDATE  hero SET potion = ? WHERE id = ?";
 
