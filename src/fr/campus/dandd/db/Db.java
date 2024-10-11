@@ -19,8 +19,88 @@ public class Db {
      * desc : instacie la connection lors de lappel de la classe Db
      */
     public Db() {
+        createDataBase();
         getConnection();
     }
+
+    public void createDataBase() {
+        Connection con = null;
+        Statement stmt = null;
+
+        // Informations de connexion
+        String url = "jdbc:mysql://localhost:3306/";  // URL sans spécifier de base de données
+        String username = "root";  // Nom d'utilisateur MySQL
+        String password = "jojo291295";  // Mot de passe MySQL
+        String driverName = "com.mysql.cj.jdbc.Driver";  // Driver MySQL
+
+        try {
+            // 1. Chargement du driver JDBC
+            Class.forName(driverName);
+
+            // 2. Connexion à MySQL sans base de données
+            con = DriverManager.getConnection(url, username, password);
+            stmt = con.createStatement();
+
+            // 3. Création de la base de données 'DonjonsEtDragons' si elle n'existe pas déjà
+            String sqlCreateDB = "CREATE DATABASE IF NOT EXISTS DonjonsEtDragons";
+            stmt.executeUpdate(sqlCreateDB);
+            System.out.println("Base de données 'DonjonsEtDragons' créée avec succès.");
+
+            // 4. Se reconnecter à la base de données 'DonjonsEtDragons'
+            con = DriverManager.getConnection(url + "DonjonsEtDragons", username, password);
+            stmt = con.createStatement();
+
+            // 5. Vérification de l'existence de la table 'hero'
+            DatabaseMetaData dbMetaData = con.getMetaData();
+            ResultSet tables = dbMetaData.getTables(null, null, "hero", null);
+
+            if (!tables.next()) {
+                // La table 'hero' n'existe pas, on la crée
+                String sqlCreateTable = "CREATE TABLE hero (" +
+                        "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                        "player_type VARCHAR(100), " +
+                        "player_name VARCHAR(50), " +
+                        "life INT, " +
+                        "attack INT, " +
+                        "weapon VARCHAR(50), " +
+                        "potion VARCHAR(50)" +
+                        ")";
+                stmt.executeUpdate(sqlCreateTable);
+                System.out.println("Table 'hero' créée avec succès.");
+
+                // Insertion de personnages de base (Guerrier et Magicien) après la création de la table
+                String insertGuerrier = "INSERT INTO hero (player_type, player_name, life, attack) VALUES ('Guerrier', 'Guerrier', 10, 10)";
+                String insertMagicien = "INSERT INTO hero (player_type, player_name, life, attack) VALUES ('Magicien', 'Magicien', 6, 15)";
+                stmt.executeUpdate(insertGuerrier);
+                stmt.executeUpdate(insertMagicien);
+
+                System.out.println("Personnages de base (Guerrier et Magicien) insérés avec succès.");
+            } else {
+                System.out.println("La table 'hero' existe déjà. Aucune insertion supplémentaire n'a été effectuée.");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Échec de la connexion ou de la création : " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Driver JDBC non trouvé : " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (SQLException ex) {
+                System.out.println("Erreur lors de la fermeture des ressources : " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
+
+
+
+
 
     /**
      * desc : Connection a la Base de Donné
